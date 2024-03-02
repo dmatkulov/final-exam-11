@@ -26,3 +26,10 @@ export interface ProductsFields {
   price: number;
   image: string | null;
 }
+
+export interface ProductResponse {
+  _id: string;
+  title: string;
+  price: number;
+  image: string;
+}
