@@ -14,8 +14,8 @@ const ProductsPage: React.FC = () => {
   const isLoading = useAppSelector(selectProductsLoading);
 
   useEffect(() => {
-    dispatch(fetchCategories());
-    dispatch(fetchProducts());
+    dispatch(fetchCategories()).unwrap();
+    dispatch(fetchProducts()).unwrap();
   }, [dispatch]);
 
   return (

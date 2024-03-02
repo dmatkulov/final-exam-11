@@ -38,6 +38,27 @@ productsRouter.get('/', async (req, res, next) => {
   }
 });
 
+productsRouter.get('/:id', async (req, res, next) => {
+  try {
+    const productId = req.params.id;
+
+    try {
+      new Types.ObjectId(productId);
+    } catch {
+      return res.status(404).send({ error: 'Wrong Item ID!' });
+    }
+
+    const product = await Product.findById(productId)
+      .populate('user', '-username')
+      .populate('category');
+
+    if (!product) {
+      return res.status(404).send({ error: 'Product not found!' });
+    }
+    return res.send(product);
+  } catch (e) {}
+});
+
 productsRouter.post(
   '/',
   imagesUpload.single('image'),

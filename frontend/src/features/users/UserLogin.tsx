@@ -48,7 +48,11 @@ const Login: React.FC = () => {
   const submitFormHandler = async (event: React.FormEvent) => {
     event.preventDefault();
 
-    await dispatch(loginUser(state)).unwrap();
+    try {
+      await dispatch(loginUser(state)).unwrap();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   let formField: React.ReactNode;

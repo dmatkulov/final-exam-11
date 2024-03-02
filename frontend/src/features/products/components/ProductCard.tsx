@@ -10,22 +10,27 @@ import {
 } from '@mui/material';
 import { Product } from '../../../types';
 import { apiURL } from '../../../helpers/constants';
+import { useNavigate } from 'react-router-dom';
 
 interface Props {
   product: Product;
 }
 
 const ProductCard: React.FC<Props> = ({ product }) => {
+  const navigate = useNavigate();
   const cardImage = apiURL + '/' + product.image;
+
   return (
     <>
       <Card
+        onClick={() => navigate('/products/' + product._id)}
         elevation={0}
         sx={{
           borderRadius: '12px',
           padding: 1.5,
           boxShadow: 0,
           borderColor: '#ececec',
+          cursor: 'pointer',
         }}
       >
         <CardMedia

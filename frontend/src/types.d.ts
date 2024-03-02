@@ -16,6 +16,24 @@ export interface Product {
   price: number;
 }
 
+export interface ProductInfo {
+  _id: string;
+  user: {
+    _id: string;
+    displayName: string;
+    phone: string;
+    token: string;
+  };
+  category: {
+    _id: string;
+    title: string;
+  };
+  title: string;
+  description: string;
+  price: number;
+  image: string;
+}
+
 export interface Category {
   _id: string;
   title: string;
