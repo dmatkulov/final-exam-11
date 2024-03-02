@@ -25,7 +25,6 @@ const AppToolbar: React.FC = () => {
       sx={{
         backgroundColor: 'white',
         boxShadow: 0,
-        mb: '80px',
       }}
     >
       <Toolbar disableGutters>

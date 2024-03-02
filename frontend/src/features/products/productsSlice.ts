@@ -1,7 +1,9 @@
-import { Product, ProductInfo } from '../../types';
+import { Product, ProductInfo, ValidationError } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import {
+  createProduct,
+  deleteProduct,
   fetchByCategory,
   fetchOneProduct,
   fetchProducts,
@@ -13,6 +15,8 @@ interface ProductsState {
   fetchLoading: boolean;
   fetchOneLoading: boolean;
   createLoading: boolean;
+  createError: ValidationError | null;
+  deleteLoading: boolean;
 }
 
 const initialState: ProductsState = {
@@ -21,6 +25,8 @@ const initialState: ProductsState = {
   fetchLoading: false,
   fetchOneLoading: false,
   createLoading: false,
+  createError: null,
+  deleteLoading: false,
 };
 
 export const productsSlice = createSlice({
@@ -63,6 +69,30 @@ export const productsSlice = createSlice({
       .addCase(fetchOneProduct.rejected, (state) => {
         state.fetchOneLoading = false;
       });
+
+    builder
+      .addCase(deleteProduct.pending, (state) => {
+        state.deleteLoading = true;
+      })
+      .addCase(deleteProduct.fulfilled, (state) => {
+        state.deleteLoading = false;
+      })
+      .addCase(deleteProduct.rejected, (state) => {
+        state.deleteLoading = false;
+      });
+
+    builder
+      .addCase(createProduct.pending, (state) => {
+        state.createLoading = true;
+        state.createError = null;
+      })
+      .addCase(createProduct.fulfilled, (state) => {
+        state.createLoading = false;
+      })
+      .addCase(createProduct.rejected, (state, action) => {
+        state.createLoading = false;
+        state.createError = action.payload || null;
+      });
   },
 });
 
@@ -75,3 +105,9 @@ export const selectOneLoading = (state: RootState) =>
   state.products.fetchOneLoading;
 export const selectCreateLoading = (state: RootState) =>
   state.products.createLoading;
+
+export const selectCreateError = (state: RootState) =>
+  state.products.createError;
+
+export const selectDeleteLoading = (state: RootState) =>
+  state.products.deleteLoading;

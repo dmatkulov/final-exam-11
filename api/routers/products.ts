@@ -56,7 +56,9 @@ productsRouter.get('/:id', async (req, res, next) => {
       return res.status(404).send({ error: 'Product not found!' });
     }
     return res.send(product);
-  } catch (e) {}
+  } catch (e) {
+    return next(e);
+  }
 });
 
 productsRouter.post(
@@ -98,22 +100,22 @@ productsRouter.post(
 productsRouter.delete('/:id', auth, async (req: RequestWithUser, res, next) => {
   try {
     const userId = req.user?._id;
-    const productId = req.params.id;
+    const _id = req.params.id;
 
     try {
-      new Types.ObjectId(productId);
+      new Types.ObjectId(_id);
     } catch {
       return res.status(404).send({ error: 'Wrong Item ID!' });
     }
 
-    const product = await Product.findById(productId);
+    const product = await Product.findById(_id);
 
     if (!product) {
       return res.status(404).send({ error: 'Item not found!' });
     }
 
     await Product.findOneAndDelete<ProductsFields>({
-      _id: productId,
+      _id: _id,
       user: userId,
     });
 

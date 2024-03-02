@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { Grid } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { fetchCategories } from '../categories/categoriesThunks';
 import NavBar from '../../components/IU/NavBar/NavBar';
@@ -14,25 +14,44 @@ const ProductsPage: React.FC = () => {
   const isLoading = useAppSelector(selectProductsLoading);
 
   useEffect(() => {
-    dispatch(fetchCategories()).unwrap();
-    dispatch(fetchProducts()).unwrap();
+    dispatch(fetchCategories());
+    dispatch(fetchProducts());
   }, [dispatch]);
 
   return (
-    <div>
-      <Grid container>
-        <Grid item xs={3}>
+    <>
+      <Container
+        component="section"
+        sx={{ display: 'flex', gap: 4 }}
+        disableGutters
+      >
+        <Grid
+          item
+          xs={3}
+          flexGrow={1}
+          pr={2}
+          pt="60px"
+          sx={{ borderRight: '1px solid #ececec' }}
+        >
           <NavBar />
         </Grid>
-        <Grid item xs={0}>
-          Products here!!!!
+        <Grid
+          container
+          item
+          xs={9}
+          justifyContent="flex-start"
+          spacing={2}
+          pt="60px"
+        >
           {isLoading && <LoadingPage />}
           {products.map((product) => (
-            <ProductCard key={product._id} product={product} />
+            <Grid item xs={4} key={product._id}>
+              <ProductCard product={product} />
+            </Grid>
           ))}
         </Grid>
-      </Grid>
-    </div>
+      </Container>
+    </>
   );
 };
 

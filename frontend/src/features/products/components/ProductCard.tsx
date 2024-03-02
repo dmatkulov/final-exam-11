@@ -1,13 +1,5 @@
 import React from 'react';
-import {
-  Box,
-  Card,
-  CardContent,
-  CardMedia,
-  Divider,
-  Grid,
-  Typography,
-} from '@mui/material';
+import { Card, CardContent, CardMedia, Typography } from '@mui/material';
 import { Product } from '../../../types';
 import { apiURL } from '../../../helpers/constants';
 import { useNavigate } from 'react-router-dom';
@@ -27,10 +19,18 @@ const ProductCard: React.FC<Props> = ({ product }) => {
         elevation={0}
         sx={{
           borderRadius: '12px',
+          border: '1px solid #eeeeee',
           padding: 1.5,
           boxShadow: 0,
           borderColor: '#ececec',
-          cursor: 'pointer',
+          height: '100%',
+          maxWidth: 345,
+          '&:hover': {
+            backgroundColor: '#F1F1F1',
+            cursor: 'pointer',
+          },
+          display: 'flex',
+          flexDirection: 'column',
         }}
       >
         <CardMedia
@@ -42,27 +42,31 @@ const ProductCard: React.FC<Props> = ({ product }) => {
             backgroundColor: 'rgba(0,0,0,0.8)',
           }}
         />
-        <CardContent sx={{ flex: '1 0 auto' }}>
-          <Box>
-            <Typography gutterBottom variant="h6">
-              {product.title}
-            </Typography>
-            <Divider />
-            <Grid
-              container
-              justifyContent="space-between"
-              alignItems="center"
-              mt={2}
-            >
-              <Typography
-                display="block"
-                variant="subtitle2"
-                color="text.secondary"
-              >
-                {product.price}
-              </Typography>
-            </Grid>
-          </Box>
+        <CardContent
+          sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'flex-start',
+            justifyContent: 'space-between',
+            flexGrow: 1,
+          }}
+        >
+          <Typography gutterBottom variant="h6" mb={2}>
+            {product.title}
+          </Typography>
+          <Typography
+            display="block"
+            variant="subtitle2"
+            mt="auto"
+            color="white"
+            px={2}
+            sx={{
+              bgcolor: '#ff5722',
+              borderRadius: 3,
+            }}
+          >
+            Price: {product.price} KGS
+          </Typography>
         </CardContent>
       </Card>
     </>

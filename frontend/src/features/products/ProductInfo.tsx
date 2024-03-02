@@ -15,11 +15,11 @@ const ProductInfo: React.FC = () => {
 
   const fetchProduct = useCallback(async () => {
     await dispatch(fetchOneProduct(id)).unwrap();
-  }, []);
+  }, [dispatch, id]);
 
   useEffect(() => {
     void fetchProduct();
-  }, [dispatch]);
+  }, [fetchProduct]);
 
   return (
     <>

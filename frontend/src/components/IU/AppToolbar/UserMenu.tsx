@@ -50,7 +50,7 @@ const UserMenu: React.FC<Props> = ({ user }) => {
           variant="text"
           startIcon={<AddCircleIcon />}
           disableElevation
-          onClick={() => navigate('/new-post')}
+          onClick={() => navigate('/products/new-product')}
         >
           Sell items
         </Button>
