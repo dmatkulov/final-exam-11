@@ -30,6 +30,14 @@ const UserSchema = new Schema<UserFields, UserModel, UserMethods>({
     type: String,
     required: true,
   },
+  displayName: {
+    type: String,
+    required: [true, 'Name is required'],
+  },
+  phone: {
+    type: String,
+    required: [true, 'Phone number is required'],
+  },
   token: {
     type: String,
     required: true,

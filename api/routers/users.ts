@@ -2,20 +2,25 @@ import express from 'express';
 import mongoose from 'mongoose';
 
 import User from '../models/Users';
+import { UserData } from '../types';
 
-const userRouter = express.Router();
+const usersRouter = express.Router();
 
-userRouter.post('/', async (req, res, next) => {
+usersRouter.post('/', async (req, res, next) => {
   try {
-    const user = new User({
-      username: req.body.username,
-      password: req.body.password,
-    });
+    const userData: UserData = {
+      username: req.body.username as string,
+      password: req.body.password as string,
+      displayName: req.body.displayName as string,
+      phone: req.body.phone,
+    };
+    const user = new User(userData);
 
     user.generateToken();
     await user.save();
     return res.send({
-      message: 'You have been successfully registered!',
+      message: `Congratulations ${user.username}! + \n +
+      You have been successfully registered!`,
       user,
     });
   } catch (error) {
@@ -27,7 +32,7 @@ userRouter.post('/', async (req, res, next) => {
   }
 });
 
-userRouter.post('/sessions', async (req, res, next) => {
+usersRouter.post('/sessions', async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
 
@@ -52,7 +57,7 @@ userRouter.post('/sessions', async (req, res, next) => {
   }
 });
 
-userRouter.delete('/sessions', async (req, res, next) => {
+usersRouter.delete('/sessions', async (req, res, next) => {
   try {
     const headerValue = req.get('Authorization');
     const successMessage = { message: 'You logged out' };
@@ -81,4 +86,4 @@ userRouter.delete('/sessions', async (req, res, next) => {
     return next(e);
   }
 });
-export default userRouter;
+export default usersRouter;
