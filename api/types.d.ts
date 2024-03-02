@@ -18,15 +18,11 @@ interface UserMethods {
 
 type UserModel = Model<UserFields, unknown, UserMethods>;
 
-export interface CategoryFields {
-  title: 'Computers' | 'Cars' | 'Tools' | 'Other';
-}
-
 export interface ProductsFields {
   user: mongoose.Types.ObjectId;
   category: mongoose.Types.ObjectId;
   title: string;
   description: string;
   price: number;
-  image: string;
+  image: string | null;
 }

@@ -1,7 +1,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 
-import User from '../models/Users';
+import User from '../models/User';
 import { UserData } from '../types';
 
 const usersRouter = express.Router();
@@ -28,7 +28,7 @@ usersRouter.post('/', async (req, res, next) => {
       return res.status(422).send(error);
     }
 
-    next(error);
+    return next(error);
   }
 });
 
@@ -53,7 +53,7 @@ usersRouter.post('/sessions', async (req, res, next) => {
 
     return res.send({ message: `Welcome back, ${user.username}!`, user });
   } catch (e) {
-    next(e);
+    return next(e);
   }
 });
 

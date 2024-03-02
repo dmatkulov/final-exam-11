@@ -1,12 +1,11 @@
 import mongoose from 'mongoose';
-import { CategoryFields } from '../types';
 
-const CategorySchema = new mongoose.Schema<CategoryFields>({
+const CategorySchema = new mongoose.Schema({
   title: {
     type: String,
-    required: true,
+    required: [true, 'Category is required'],
     enum: {
-      values: ['Computers', 'Cars', 'Tools', 'Other'],
+      values: ['Computers', 'Cars', 'Clothes'],
       message: 'Unknown category',
     },
   },

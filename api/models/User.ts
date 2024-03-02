@@ -5,9 +5,7 @@ import { randomUUID } from 'crypto';
 
 const SALT_WORK_FACTOR = 10;
 
-const Schema = mongoose.Schema;
-
-const UserSchema = new Schema<UserFields, UserModel, UserMethods>({
+const UserSchema = new mongoose.Schema<UserFields, UserModel, UserMethods>({
   username: {
     type: String,
     required: true,
