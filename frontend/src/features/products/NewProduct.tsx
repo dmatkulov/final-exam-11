@@ -9,7 +9,7 @@ const NewProduct: React.FC = () => {
   const user = useAppSelector(selectUser);
 
   if (!user) {
-    return <Navigate to="/" />;
+    return <Navigate to="/login" />;
   }
 
   return (
