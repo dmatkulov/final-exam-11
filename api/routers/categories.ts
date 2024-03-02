@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 
 const categoriesRouter = express.Router();
 
-categoriesRouter.get('', async (_req, res, next) => {
+categoriesRouter.get('/', async (_req, res, next) => {
   try {
     const categories = await Category.find();
     return res.send(categories);

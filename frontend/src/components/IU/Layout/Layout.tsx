@@ -5,7 +5,7 @@ import AppToolbar from '../AppToolbar/AppToolbar';
 const Layout: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (
     <Container
-      maxWidth="md"
+      maxWidth="lg"
       disableGutters
       sx={{
         borderLeft: '1px solid #eee',

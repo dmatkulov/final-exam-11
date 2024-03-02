@@ -5,15 +5,15 @@ import {
   Menu,
   MenuItem,
   Stack,
-  Tooltip,
+  Typography,
 } from '@mui/material';
-import { User } from '../../../types';
+import LogoutIcon from '@mui/icons-material/Logout';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
+import { User } from '../../../types';
 import { useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import LogoutIcon from '@mui/icons-material/Logout';
 import { logOutUser } from '../../../features/users/usersThunks';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { selectLogOutLoading } from '../../../features/users/usersSlice';
 import LoadingPage from '../LoadingPage/LoadingPage';
 
@@ -22,8 +22,8 @@ interface Props {
 }
 
 const UserMenu: React.FC<Props> = ({ user }) => {
-  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
   const logOutLoading = useAppSelector(selectLogOutLoading);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -43,31 +43,29 @@ const UserMenu: React.FC<Props> = ({ user }) => {
         sx={{ flexGrow: 1 }}
         direction="row"
         spacing={5}
-        alignItems="center"
-        justifyContent="center"
+        alignItems="flex-end"
+        justifyContent="flex-end"
       >
         <Button
-          color={'secondary'}
-          sx={{ textTransform: 'none', color: 'white', borderRadius: 16 }}
-          variant="contained"
+          variant="text"
           startIcon={<AddCircleIcon />}
           disableElevation
           onClick={() => navigate('/new-post')}
         >
-          Create post
+          Sell items
         </Button>
+        <Stack direction="row" alignItems="center">
+          <Typography color="black">{user.username}</Typography>
+          <IconButton
+            color="primary"
+            onClick={handleClick}
+            sx={{ display: 'flex', gap: 1 }}
+            disableRipple
+          >
+            <AccountCircleIcon color="secondary" />
+          </IconButton>
+        </Stack>
       </Stack>
-
-      <IconButton
-        color="inherit"
-        onClick={handleClick}
-        sx={{ display: 'flex', gap: 1 }}
-        disableRipple
-      >
-        <Tooltip title={user.username}>
-          <AccountCircleIcon color="secondary" />
-        </Tooltip>
-      </IconButton>
 
       <Menu
         open={Boolean(anchorEl)}

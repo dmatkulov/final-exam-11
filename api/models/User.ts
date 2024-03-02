@@ -8,7 +8,7 @@ const SALT_WORK_FACTOR = 10;
 const UserSchema = new mongoose.Schema<UserFields, UserModel, UserMethods>({
   username: {
     type: String,
-    required: true,
+    required: [true, 'Username is required'],
     unique: true,
     validate: {
       validator: async function (
@@ -26,7 +26,7 @@ const UserSchema = new mongoose.Schema<UserFields, UserModel, UserMethods>({
   },
   password: {
     type: String,
-    required: true,
+    required: [true, 'Password is required'],
   },
   displayName: {
     type: String,

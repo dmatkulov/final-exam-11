@@ -91,13 +91,10 @@ productsRouter.delete('/:id', auth, async (req: RequestWithUser, res, next) => {
       return res.status(404).send({ error: 'Item not found!' });
     }
 
-    await Product.findOneAndDelete<ProductsFields>(
-      {
-        _id: productId,
-        user: userId,
-      },
-      { runValidators: true },
-    );
+    await Product.findOneAndDelete<ProductsFields>({
+      _id: productId,
+      user: userId,
+    });
 
     return res.send({ message: 'Item was successfully deleted ' });
   } catch (e) {

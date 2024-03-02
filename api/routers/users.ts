@@ -19,8 +19,7 @@ usersRouter.post('/', async (req, res, next) => {
     user.generateToken();
     await user.save();
     return res.send({
-      message: `Congratulations ${user.username}! + \n +
-      You have been successfully registered!`,
+      message: `Congratulations ${user.username}! You have been successfully registered!`,
       user,
     });
   } catch (error) {

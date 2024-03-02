@@ -1,6 +1,7 @@
 import React from 'react';
-import { AppBar, Grid, styled, Toolbar, Typography } from '@mui/material';
 import { NavLink } from 'react-router-dom';
+import { AppBar, Grid, styled, Toolbar, Typography } from '@mui/material';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 import { useAppSelector } from '../../../app/hooks';
 import { selectUser } from '../../../features/users/usersSlice';
@@ -25,8 +26,6 @@ const AppToolbar: React.FC = () => {
         backgroundColor: 'white',
         boxShadow: 0,
         mb: '80px',
-        minHeight: '74px',
-        borderTop: '8px solid coral',
       }}
     >
       <Toolbar disableGutters>
@@ -41,7 +40,10 @@ const AppToolbar: React.FC = () => {
           }}
         >
           <Typography variant="h6" component="div" color="black">
-            <Link to="/">TalkSpace</Link>
+            <Link to="/" sx={{ display: 'flex', gap: 1 }}>
+              <ShoppingCartIcon color="primary" />
+              <Typography variant="subtitle1">Flea Market</Typography>
+            </Link>
           </Typography>
           {user ? <UserMenu user={user} /> : <GuestMenu />}
         </Grid>

@@ -9,9 +9,23 @@ export interface RegisterResponse {
   user: User;
 }
 
+export interface Product {
+  _id: string;
+  title: string;
+  image: string;
+  price: number;
+}
+
+export interface Category {
+  _id: string;
+  title: string;
+}
+
 export interface RegisterMutation {
   username: string;
   password: string;
+  displayName: string;
+  phone: string;
 }
 
 export interface LoginMutation {
